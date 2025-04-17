@@ -1,9 +1,5 @@
 image: gitpod/workspace-full
 
-tasks:
-  - init: npm install
-    command: npm start
-
 ports:
   - port: 3000
     onOpen: open-browser
@@ -12,3 +8,5 @@ vscode:
   extensions:
     - dbaeumer.vscode-eslint
     - esbenp.prettier-vscode
+    - ecmel.vscode-html-css
+    - ritwickdey.LiveServer
