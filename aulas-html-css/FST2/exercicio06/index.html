@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio06</title>
+</head>
+
+<body>
+    <h2>Formulário o Exercicio06</h2>
+    <form>
+        <div>
+            <label for="fname">
+                Nome:
+                <input type="text" id="fname" name="fname" placeholder="primeiro nome" required />
+            </label>
+        </div>
+        <div>
+            <label for="sname">
+                Sobrenome:
+                <input type="text" id="sname" name="sname" placeholder="sobrenome" required />
+            </label>
+        </div>
+        <div>
+            <h4>Escolha seu País:</h4>
+            <input type="radio" id="br" name="pais" value="brasil" />
+            <label for="br">Brasil</label>
+            <input type="radio" id="canada" name="pais" value="canada" />
+            <label for="canada">Canada</label>
+            <input type="radio" id="ag" name="pais" value="argentina" />
+            <label for="ag">Argentina</label>
+        </div>
+        <div>
+            <fieldset>
+                <legend>
+                    <b>Termos e Condições</b>
+                </legend>
+                <div>
+                    <input type="checkbox" id="termo" value="sim" required />
+                    <label for="termo">Aceito o termo e as condições</label>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</body>
+
+</html>
