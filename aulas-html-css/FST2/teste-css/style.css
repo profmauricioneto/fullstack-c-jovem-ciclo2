@@ -1,0 +1,24 @@
+/* h2, p {
+    color: white;
+    background-color: black;
+    font-size: 20px;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#titulo {
+    color: red;
+}
+
+.content {
+    color: white;
+    background-color: black;
+}
+
+article.content {
+    font-weight: bolder;
+}

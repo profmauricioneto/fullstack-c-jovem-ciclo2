@@ -1,0 +1,16 @@
+#cabecalho {
+    text-align: center;
+}
+
+.card-pokemon {
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    width: 200px; 
+    margin: 10px; 
+    padding: 15px; 
+    text-align: center;
+}
+
+.card-image {
+    width: 200px;
+}
