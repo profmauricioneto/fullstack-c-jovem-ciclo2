@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de formulário</title>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="nome-usuario">
+                Nome:
+                <input 
+                    type="text"
+                    id="nome-usuario"
+                    name="nome-usuario"
+                    placeholder="digite seu nome"
+                    required />
+            </label>
+    
+            <label for="sobrenome-usuario">
+                Sobrenome:
+                <input 
+                    type="text"
+                    id="sobrenome-usuario"
+                    name="sobrenome-usuario"
+                    placeholder="digite seu sobrenome"
+                    required />
+            </label>
+        </div>
+
+        <div>
+            <label for="idade-usuario">
+                Idade:
+                <input 
+                    type="number"
+                    id="idade-usuario"
+                    name="idade-usuario"
+                    placeholder="digite sua idade"
+                    max="120"
+                    min="1"
+                    required />
+            </label>
+        </div>
+
+        
+
+        <input type="submit">
+    </form>
+</body>
+</html>
