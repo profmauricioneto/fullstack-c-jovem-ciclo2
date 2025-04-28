@@ -1,0 +1,16 @@
+#header-page {
+    text-align: center;
+}
+
+.card-pokemon {
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    width: 200px; 
+    margin: 10px; 
+    padding: 10px; 
+    text-align: center;
+}
+
+.image-pokemon {
+    width: 200px;
+}
