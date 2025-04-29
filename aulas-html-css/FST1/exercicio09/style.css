@@ -1,0 +1,14 @@
+#header-page {
+    background-color: #444;
+    color: #fff;
+    height: 50px;
+    text-align: center;
+}
+
+.product-card {
+    width: 200px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}

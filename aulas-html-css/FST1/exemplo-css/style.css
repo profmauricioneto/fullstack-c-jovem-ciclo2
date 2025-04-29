@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+}
+
+/* h2, p {
+    color: white;
+    background-color: black;
+    font-size: 18px;
+} */
+
+#header-page {
+    font-family: 'Times New Roman', Times, serif;
+    color: blue;
+}
+
+.content {
+    color: white;
+    background-color: black;
+    font-size: 18px;
+}
+
+article.content {
+    text-align: left;
+    color: red;
+}
+
+/* article.content {
+    color: blue;
+} */
