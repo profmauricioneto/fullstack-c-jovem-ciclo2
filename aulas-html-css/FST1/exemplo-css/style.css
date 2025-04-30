@@ -21,11 +21,30 @@
     font-size: 18px;
 }
 
+/* .content::first-line {
+    color: blue;
+}
+
+.content::first-letter {
+    text-transform: uppercase;
+    font-size: x-large;
+    font-weight: bold;
+}
+
 article.content {
     text-align: left;
     color: red;
 }
 
+article.content:hover {
+    background-color: white;
+    color: black;
+} */
+
 /* article.content {
     color: blue;
 } */
+
+div p {
+    border: 2px solid orange;
+}

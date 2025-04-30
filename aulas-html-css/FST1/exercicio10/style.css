@@ -1,0 +1,39 @@
+#header-page {
+    text-align: center;
+}
+
+.card-pokemon {
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    width: 200px; 
+    margin: 10px; 
+    padding: 10px; 
+    text-align: center;
+}
+
+.image-pokemon {
+    width: 200px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: #444;
+    color: white
+}
+
+.btn-buy:hover, .btn-like:hover {
+    background-color: #ccc;
+    color: black;
+}
+
+.btn-like:active {
+    background-color: #2b71e9;
+}
+
+.liked {
+    background-color: green;
+}
