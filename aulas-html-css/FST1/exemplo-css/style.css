@@ -1,5 +1,4 @@
 * {
-    box-sizing: border-box;
     margin: 0;
     text-align: center;
 }
@@ -10,10 +9,14 @@
     font-size: 18px;
 } */
 
-#header-page {
+/* #header-page {
     font-family: 'Times New Roman', Times, serif;
     color: blue;
-}
+    height: 50px;
+    background-color: brown;
+    position: sticky;
+    top: 0;
+} */
 
 .content {
     color: white;
@@ -47,4 +50,31 @@ article.content:hover {
 
 div p {
     border: 2px solid orange;
+}
+
+article#example-relative {
+    position: relative;
+    bottom: 0;
+    border: 2px solid blue;
+    background-color: white;
+}
+
+nav {
+    height: 50px;
+}
+
+ul li {
+    float: left;
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+li {
+    border: 1px solid yellow;
+
+}
+
+a {
+    text-decoration: none;
 }

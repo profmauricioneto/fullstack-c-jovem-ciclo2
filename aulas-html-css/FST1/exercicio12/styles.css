@@ -1,0 +1,29 @@
+@import url('./button.css');
+@import url('./cards.css');
+@import url('./navigationbar.css');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.destaque, .mais-vendidos {
+    overflow: hidden;
+}
+
+.destaque .coluna {
+    float: left;
+    width: 48%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.mais-vendidos .coluna {
+    float: left;
+    width: 32%;
+    padding: 10px;
+    text-align: center;
+}
+
+

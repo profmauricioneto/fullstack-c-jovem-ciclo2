@@ -1,0 +1,14 @@
+nav ul {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+ul li {
+    float: left;
+    list-style-type: none;
+    padding: 10px;
+}
+
+li a {
+    text-decoration: none;
+}
