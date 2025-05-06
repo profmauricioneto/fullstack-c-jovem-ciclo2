@@ -1,0 +1,39 @@
+.card-product {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-product:hover {
+    scale: 1.01;
+    transition: 0.5s;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+#destaques, #mais-vendidos {
+    overflow: hidden;
+}
+
+#destaques .column {
+    float: left;
+    width: 48%;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+
+}
+
+#mais-vendidos .column {
+    float: left;
+    width: 32%;
+    box-sizing: border-box;
+    padding: 10px;
+}
