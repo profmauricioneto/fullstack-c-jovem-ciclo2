@@ -1,0 +1,30 @@
+#perfil {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #ccc;
+    /* border-width: 2px;
+    border-style: solid;
+    border-color: #ccc; */
+
+    border-radius: 0.5em;
+}
+
+.foto img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.descricao {
+    flex: 1;
+    margin: 20px;
+}
+
+.descricao h2 {
+    margin-bottom: 20px;
+}
