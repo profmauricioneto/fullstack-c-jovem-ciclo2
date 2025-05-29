@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#area-compra {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#area-compra h2 {
+    padding: 10px;
+    margin: 10px;
+}
+
+#area-compra button {
+    background-color: #3abb6c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+#carrinho {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#carrinho p {
+    padding: 10px;
+    width: 100%;
+}
+
+#carrinho p:nth-child(even) {
+    background-color: #eee;
+}

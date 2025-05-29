@@ -1,0 +1,17 @@
+h2 {
+    text-align: center;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div {
+    width: 100px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
