@@ -1,0 +1,18 @@
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+section {
+    display: flex;
+}
+
+div {
+    width: 100px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    align-self: center;
+}
