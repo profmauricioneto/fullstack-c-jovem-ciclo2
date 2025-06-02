@@ -1,0 +1,47 @@
+* {
+    font-family: monospace;
+}
+
+input {
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px;
+}
+
+#lista-tarefas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+#lista-tarefas li {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#lista-tarefas li:nth-child(even) {
+    background-color: #eee;
+}
+
+#lista-tarefas li button {
+    padding: 5px;
+    margin-left: 10px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+#lista-tarefas li button:hover {
+    background-color: #e9e9e9;
+}
+
+
+
