@@ -1,0 +1,46 @@
+* {
+    font-family: monospace;
+}
+
+input {
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+#btn-send {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1d9a3d;
+    color: #fff;
+    cursor: pointer;
+}
+
+#btn-send:hover {
+    background-color: #41d666;
+}
+
+#lista {
+    list-style: none;
+    padding: 0;
+}
+
+#lista li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+}
+
+#lista li:nth-child(even) {
+    background-color: #eee;
+}
+
+#lista li button {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #a90a0a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
