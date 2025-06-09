@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+    margin: 10px;
+}
+ 
+#cabecalho {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 10px;
+    padding: 10px;
+}
+
+#cabecalho input {
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead, tbody, th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+thead {
+    background-color: #333;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tfoot {
+    font-weight: bold;
+}
+
+#total {
+    color: #da1515
+}

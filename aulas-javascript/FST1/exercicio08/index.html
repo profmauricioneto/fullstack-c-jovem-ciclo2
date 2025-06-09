@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício E-Commerce</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h3>Produtos</h3>
+    <div id="cabecalho">
+        <div>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" min="0"/>
+        </div>
+
+        <div>
+            <label for="nome-produto">Nome do Produto:</label>
+            <input type="text" id="nome-produto" name="nome-produto" placeholder="nome do produto..."/>
+        </div>
+
+        <div>
+            <label for="preco">Preço Unitário:</label>
+            <input type="number" id="preco" name="preco" min="0"/>
+        </div>
+
+        <button id="enviar-produto">enviar</button>
+    </div>
+
+    <h3>Carrinho de Compras</h3>
+    <table id="carrinho">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Total</th>
+            </tr>
+        </thead>
+        <tbody id="carrinho-corpo"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total: </td>
+                <td id="total">R$ 0,00</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
