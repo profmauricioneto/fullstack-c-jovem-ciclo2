@@ -4,8 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercício de E-Commerce</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <h3>Produtos</h3>
+    <div id="produtos">
+        <div>
+            <label for="quantidade">Quantidade</label>
+            <input type="number" id="quantidade" name="quantidade" min="0" />
+        </div>
+
+        <div>
+            <label for="nome-produto">Nome Produto</label>
+            <input type="text" id="nome-produto" name="nome-produto" placeholder="digite o produto..." />
+        </div>
+
+        <div>
+            <label for="preco">Preço Unitário</label>
+            <input type="number" id="preco" name="preco" min="0" />
+        </div>
+    </div>
+    <div id="btn-container">
+        <button id="btn-send">Enviar</button>
+    </div>
+
+    <h3>Tabela do Carrinho</h3>
+    <table id="tabela-carrinho">
+        <thead>
+            <tr>
+                <th>Quantidade</th>
+                <th>Produto</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="corpo-tabela"></tbody>
+        <tfoot>
+            <td colspan="2">Total</td>
+            <td id="valor-total">R$ 0.00</td>
+        </tfoot>
+    </table>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-size: 1.4rem;
+}
+
+#produtos {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+#produtos input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#btn-container #btn-send {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0f9446;
+    color: #fff;
+    cursor: pointer;
+}
+
+#tabela-carrinho {
+    border-collapse: collapse;
+    width: 100vw;
+}
+ 
+thead, tbody, td, th {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+thead tr {
+    background-color: #aaa;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tfoot tr {
+    text-align: center;
+    font-weight: bold;
+}
+
+#valor-total {
+    font-weight: bold;
+    color: red;
+}
