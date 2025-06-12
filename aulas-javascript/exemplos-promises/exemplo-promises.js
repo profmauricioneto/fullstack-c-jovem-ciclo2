@@ -43,6 +43,7 @@ function getCitiesAPI(myCity) {
   return myWeather.weather;
 }
 
+// setTimeout(()=>{}, 1000)
 
 function searchWeatherForecast(city) {
   return new Promise((resolve, reject) => {

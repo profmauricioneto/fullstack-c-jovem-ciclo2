@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+}
+
+#input-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+#input-data input, select {
+    padding: 5px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+#input-data input {
+    width: 60%;
+}
+
+#input-data select {
+    width: 30%;
+}
+
+#input-data div {
+    flex-direction: column;
+}
+
+#btn {
+    display: flex;
+    justify-content: center;
+} 
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #08793e;
+    color: #fff;
+}
+
+ul {
+    width: 100%;
+    margin: 10px;
+}
+
+ul li {
+    border: 1px solid #bbb;
+    list-style: none;
+    padding: 10px;
+}
+
+ul li:nth-child(even) {
+    background-color: #eee;
+}
