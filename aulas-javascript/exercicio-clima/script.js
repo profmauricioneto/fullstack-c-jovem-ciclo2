@@ -1,28 +1,35 @@
-let API_KEY = 'f1fef98a34dcdc4cc250359f657d5d82';
-// Função para obter dados climáticos
-const fetchWeatherData = async (city) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=pt_br`;
-    // Faz a requisição para a API
-    const response = await fetch(url);
-    // Verifica se a requisição foi bem sucedida
-    if (!response.ok) {
-      throw new Error('Erro ao buscar dados climáticos');
-    }
-    const data = await response.json();
-    return data;
-  };
-  
-  // Função principal para obter dados climáticos
-  const getWeatherData = async (city) => {
+'use strict';
+
+document
+  .getElementById("form-clima")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const cidade = document.getElementById("cidade").value;
+    const apiKey =  "..";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+      cidade
+    )}&appid=${apiKey}&lang=pt_br&units=metric`;
+
+    const resultadoDiv = document.getElementById("resultado");
+    resultadoDiv.style.display = "none";
+    resultadoDiv.innerHTML = "Buscando...";
+
     try {
-      const data = await fetchWeatherData(city);
-      console.log(data);
-    } catch (error) {
-      console.error('Erro:', error.message);
+      const resposta = await fetch(url);
+      if (!resposta.ok) throw new Error("Cidade não encontrada");
+      const dados = await resposta.json();
+
+      resultadoDiv.innerHTML = `
+                    <strong>${dados.name}, ${dados.sys.country}</strong><br>
+                    Temperatura: ${dados.main.temp}°C<br>
+                    Sensação térmica: ${dados.main.feels_like}°C<br>
+                    Clima: ${dados.weather[0].description}<br>
+                    Umidade: ${dados.main.humidity}%<br>
+                    Vento: ${dados.wind.speed} m/s
+                `;
+      resultadoDiv.style.display = "block";
+    } catch (erro) {
+      resultadoDiv.innerHTML = "Erro: " + erro.message;
+      resultadoDiv.style.display = "block";
     }
-  };
-  
-  // Chama a função principal para obter dados climáticos
-  getWeatherData("Sao Paulo");
-  getWeatherData("Fortaleza");
-  getWeatherData("Recife");
+  });
