@@ -1,11 +1,6 @@
 image:
   file: Dockerfile
 
-tasks:
-  - name: Instalação e Inicialização
-    init: npm install
-    command: npm run dev
-
 ports:
   - port: 3000
     onOpen: open-browser
