@@ -1,5 +1,8 @@
 # Usa a imagem oficial do Node.js 22
-FROM node:22
+FROM node:22-slim
+
+# Atualiza os pacotes do sistema para corrigir vulnerabilidades
+RUN apt-get update && apt-get upgrade -y && apt-get clean
 
 # Define o diretório de trabalho no container
 WORKDIR /workspace/app
