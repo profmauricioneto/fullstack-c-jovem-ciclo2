@@ -1,4 +1,10 @@
-image: gitpod/workspace-full
+image:
+  file: Dockerfile
+
+tasks:
+  - name: Instalação e Inicialização
+    init: npm install
+    command: npm run dev
 
 ports:
   - port: 3000
@@ -10,3 +16,8 @@ vscode:
     - esbenp.prettier-vscode
     - ecmel.vscode-html-css
     - ritwickdey.LiveServer
+    - coenraads.bracket-pair-colorizer-2
+    - dsznajder.es7-react-js-snippets
+    - bradlc.vscode-tailwindcss
+    - christian-kohler.path-intellisense
+    - mikestead.dotenv
