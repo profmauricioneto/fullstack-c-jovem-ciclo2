@@ -58,7 +58,7 @@ function searchWeatherForecast(city) {
   });
 }
 
-const forecastSaoPaulo = searchWeatherForecast("Sao -Paulo");
+const forecastSaoPaulo = searchWeatherForecast("Sao Paulo");
 Promise.all([forecastSaoPaulo])
   .then((result) => {
     console.log(result);
