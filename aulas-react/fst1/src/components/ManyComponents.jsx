@@ -9,8 +9,8 @@ export const CalculateBirthYear = (props) => {
 
     return(
         <Fragment>
-            <h2>Your age is {age}</h2>
-            <h3>Your birth year {birthYear}</h3>
+            <h2 className='font-bold p-2 text-xl text-center'>Your age is {age}</h2>
+            <h3 className='text-xl p-2 text-center'>Your birth year {birthYear}</h3>
         </Fragment>
     )
 }

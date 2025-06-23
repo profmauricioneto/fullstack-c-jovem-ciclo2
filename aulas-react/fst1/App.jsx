@@ -1,6 +1,6 @@
 import React from "react";
 import ListPokemon from "./exercicio01/ListPokemon";
-import './App.css';
+import './App.modules.css';
 
 const pokemons = [
   { name: "Mewtwo", url: "./mewtwo.png", type: "Psiquico" },
