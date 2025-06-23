@@ -2,9 +2,10 @@ import { Fragment } from 'react';
 // import FirstComponent from './components/FirstComponent';
 // import Greeting from './components/Greeting';
 // import CalculateBirthYear from './components/CalculateBirthYear';
-import Cadastro from './components/Cadastro';
-import Login from './components/Login';
-import { Route, Routes } from 'react-router-dom';
+// import Cadastro from './components/Cadastro';
+// import Login from './components/Login';
+// import { Route, Routes } from 'react-router-dom';
+import GetDataFromAPI from './components/GetDataFromAPI';
 
 export default function App () {
     return(
@@ -12,10 +13,11 @@ export default function App () {
             {/* <FirstComponent/>
             <Greeting name='Maurício Neto'/>
             <CalculateBirthYear age={1990}/> */}
-            <Routes>
+            {/* <Routes>
                 <Route path='/' element = {< Cadastro />} />
                 <Route path='/login' element = {< Login />} />
-            </Routes>
+            </Routes> */}
+            <GetDataFromAPI />
         </Fragment>
     );
 }
