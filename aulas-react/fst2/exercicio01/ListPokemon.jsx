@@ -1,6 +1,6 @@
 import React from 'react';
 import CardPokemon from './CardPokemon';
-import './ListPokemon.css'
+import './ListPokemon.modules.css'
 
 export default function ListPokemon({ pokemons }) {
     return (

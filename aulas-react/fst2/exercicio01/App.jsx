@@ -1,5 +1,6 @@
 import React from "react";
 import ListPokemon from "./ListPokemon";
+// import './App.modules.css'
 
 const pokemons = [
   { name: "Charizard", url: "/assets/charizard.webp", type: "Fire" },
@@ -11,7 +12,7 @@ const pokemons = [
 export default function App() {
     return (
         <div>
-            <h1>Aplicação de Cartas Pokemon</h1>
+            <h1 className="text-center m-4 font-bold text-5xl">Aplicação de Cartas Pokemon</h1>
             <ListPokemon pokemons={pokemons} />
         </div>
     );
