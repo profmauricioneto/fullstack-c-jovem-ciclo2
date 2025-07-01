@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function Cadastro() {
   const [senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,6 +32,7 @@ export default function Cadastro() {
       setSenha("");
       setEmail("");
       setError("");
+      navigate('/login');
     }
   };
 
@@ -69,7 +72,14 @@ export default function Cadastro() {
         type="submit"
         className="text-white bg-blue-500 text-center rounded-lg px-4 py-2 hover:bg-blue-600 transition-colors cursor-pointer font-bold"
         >Cadastrar</button>
-      {error && <p>{error}</p>}
+      
+      {error && <p className="text-center text-red-700">{error}</p>}
+
+      <button
+        type="button"
+        className=" bg-gray-200 text-blue-600 rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-400 transition-colors"
+        onClick={() => navigate('/login')}
+      >Já tem conta? faça seu login aqui!</button>
     </form>
   );
 }

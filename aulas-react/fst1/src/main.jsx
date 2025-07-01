@@ -1,10 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Cadastro from "./components/Cadastro";
-
+// import AppLogin from "../exercicio02/AppLogin";
+import { BrowserRouter } from "react-router-dom";
+import GetApiPosts from "./components/GetApiPosts";
+// import TestUseEffect from "./components/TestUseEffect";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Cadastro />
+    <BrowserRouter>
+      {/* <AppLogin /> */}
+      {/* <TestUseEffect /> */}
+      <GetApiPosts />
+    </BrowserRouter>
   </StrictMode>
 );
