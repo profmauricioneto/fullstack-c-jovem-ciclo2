@@ -2,7 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 // import AppLogin from "../exercicio02/AppLogin";
 import { BrowserRouter } from "react-router-dom";
-import GetApiPosts from "./components/GetApiPosts";
+import CounterZustand from "./components/CounterZustand";
+// import ListaTarefas from "./components/ListaTarefas";
+// import GetApiPosts from "./components/GetApiPosts";
 // import TestUseEffect from "./components/TestUseEffect";
 
 createRoot(document.getElementById("root")).render(
@@ -10,7 +12,9 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       {/* <AppLogin /> */}
       {/* <TestUseEffect /> */}
-      <GetApiPosts />
+      {/* <GetApiPosts /> */}
+      {/* <ListaTarefas /> */}
+      <CounterZustand />
     </BrowserRouter>
   </StrictMode>
 );

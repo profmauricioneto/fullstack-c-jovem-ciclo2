@@ -10,6 +10,8 @@ export default function GetApiPosts() {
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then((data) => data.json())
         .then((result) => setPosts(result)
+        .catch((error) => console.error('Error ao carregar a API:', error)
+        )
     )},[])
     
     return (
