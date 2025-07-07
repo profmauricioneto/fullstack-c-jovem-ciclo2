@@ -32,7 +32,7 @@ export default function Cadastro() {
             setFullname('');
             setEmail('');
             setPassword('');
-            navigate('/login')
+            navigate('/login');
         }
     };
 
