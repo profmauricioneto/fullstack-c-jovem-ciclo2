@@ -14,7 +14,6 @@ const App = () => {
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const [showAlert, setShowAlert] = useState(true);
     
-    // Estados para os modais
     const [promptConfig, setPromptConfig] = useState({
         isOpen: false,
         title: '',
