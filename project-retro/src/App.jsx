@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import ColumnArea from './components/ColumnArea';
 import Header from './components/Header';
 import SubHeader from './components/SubHeader';
 import Login from './components/Login';
-import LoginAlertSuccess from './components/LoginAlertSuccess';
 import CustomPrompt from './components/CustomPrompt';
 import CustomConfirm from './components/CustomConfirm';
 import { useColumnStore } from '../hooks/useColumnStores';
@@ -12,7 +12,7 @@ import { useAuthStore } from '../hooks/useAuthStore';
 const App = () => {
     const { columns, cards, addCard, editCard, deleteCard } = useColumnStore();
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-    const [showAlert, setShowAlert] = useState(true);
+    const [hasShownWelcome, setHasShownWelcome] = useState(false);
     
     const [promptConfig, setPromptConfig] = useState({
         isOpen: false,
@@ -29,6 +29,21 @@ const App = () => {
         onConfirm: null
     });
 
+    // Mostra toast quando o usuário faz login
+    useEffect(() => {
+        if (isAuthenticated && !hasShownWelcome) {
+            toast.success('Login realizado com sucesso! 🎉', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            setHasShownWelcome(true);
+        }
+    }, [isAuthenticated, hasShownWelcome]);
+
     if (!isAuthenticated) {
         return <Login />;
     }
@@ -42,6 +57,7 @@ const App = () => {
             onConfirm: (text) => {
                 addCard(columnIndex, text);
                 setPromptConfig(prev => ({ ...prev, isOpen: false }));
+                toast.success('Card adicionado com sucesso!');
             }
         });
     };
@@ -57,6 +73,7 @@ const App = () => {
                 onConfirm: (newText) => {
                     editCard(columnIndex, cardId, newText);
                     setPromptConfig(prev => ({ ...prev, isOpen: false }));
+                    toast.info('Card editado com sucesso!');
                 }
             });
         }
@@ -70,6 +87,7 @@ const App = () => {
             onConfirm: () => {
                 deleteCard(columnIndex, cardId);
                 setConfirmConfig(prev => ({ ...prev, isOpen: false }));
+                toast.error('Card excluído com sucesso!');
             }
         });
     };
@@ -90,11 +108,6 @@ const App = () => {
                     />
                 ))}
             </div>
-            {showAlert && (
-                <div className="fixed top-8 left-1/2 -translate-x-1/2 z-50">
-                    <LoginAlertSuccess onClose={() => setShowAlert(false)} />
-                </div>
-            )}
             
             <CustomPrompt
                 isOpen={promptConfig.isOpen}
