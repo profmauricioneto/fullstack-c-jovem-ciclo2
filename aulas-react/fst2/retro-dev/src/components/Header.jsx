@@ -11,7 +11,7 @@ export default function Header() {
     return(
         <Fragment>
             <div className="flex justify-between items-center p-1">
-                <img className="h-20 w-40 object-cover" src="/logo-easyretro.png" alt="RETRODEV-LOGO" />
+                <img className="h-20 w-40 object-cover" src="/logo-retro-dev.png" alt="RETRODEV-LOGO" />
                 <h2 className="text-xl font-bold font-mono">My Current Retrospective</h2>
                 <div className="flex items-center gap-2">
                     <span className="text-gray-600 font-medium">{user?.email || 'undefined user'}</span>
