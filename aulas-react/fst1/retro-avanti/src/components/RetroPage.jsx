@@ -6,6 +6,7 @@ import { useColumnStore } from "../hooks/useColumnStore";
 
 export default function RetroPage() {
   const columns = useColumnStore((state) => state.columns);
+  // const {cards, addCard, editCard, deleteCard} = useColumnStore();
 
   return (
     <>
