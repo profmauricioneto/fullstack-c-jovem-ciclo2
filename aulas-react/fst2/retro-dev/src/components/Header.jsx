@@ -3,7 +3,6 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import { useAuthStore } from "../hooks/useAuthStore";
 
-
 export default function Header() {
 
     const user = useAuthStore((state) => state.user)

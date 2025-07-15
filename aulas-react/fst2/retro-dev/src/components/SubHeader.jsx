@@ -6,8 +6,10 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { toast } from 'react-toastify';
 
 export default function SubHeader() {
+  
   const addColumn = useColumnStore((state) => state.addColumn);
   const [columnName, setColumnName] = useState("");
   const [open, setOpen] = useState(false);
@@ -23,7 +25,15 @@ export default function SubHeader() {
 
   const handleAddColumn = () => {
     if (columnName.trim()) {
-        addColumn(columnName.trim())
+        addColumn(columnName.trim());
+        toast.info('New Column Added', {
+        position: 'top-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
     handleClose();
   }
