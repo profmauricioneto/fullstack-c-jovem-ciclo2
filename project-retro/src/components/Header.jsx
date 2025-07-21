@@ -1,6 +1,6 @@
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useAuthStore } from '../../hooks/useAuthStore';
+import { useAuthStore } from '../hooks/useAuthStore';
 
 const Header = () => {
     const user = useAuthStore((state) => state.user);

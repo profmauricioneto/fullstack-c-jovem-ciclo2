@@ -3,7 +3,7 @@ import Card from "./Card";
 
 const ColumnArea = (props) => {
   return (
-    <div className="h-screen w-1/4 bg-white shadow-lg p-6 border border-gray-200 rounded-xl flex flex-col items-center mx-2">
+    <div className="h-screen w-120 flex-shrink-0 bg-white shadow-lg p-6 border border-gray-200 rounded-xl flex flex-col items-center mx-2">
       <h2 className="text-center mb-4 text-xl font-bold text-gray-700 border-b-2 border-blue-200 w-full pb-2">
         {props.titleColumn}
       </h2>
