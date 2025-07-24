@@ -63,17 +63,3 @@ exports.getAllClients = () => {
     throw error;
   }
 };
-
-exports.verifyClientPassword = async (email, senha) => {
-  try {
-    logger.info('Verifying password of client', { email });
-    
-    // const client = 
-  } catch (error) {
-    logger.error("Erro ao verificar senha", {
-      error: error.message,
-      email,
-    });
-    throw error;
-  }
-};
