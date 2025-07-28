@@ -1,4 +1,5 @@
 const path = require("path");
+
 require("dotenv").config({
   path: path.resolve(__dirname, "./config/.env"),
 });
@@ -14,7 +15,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     const allowed = ["http://localhost:5173", "http://127.0.0.1:3000"];
 
-    if (origin) return callback(null, true);
+    if (!origin) return callback(null, true);
 
     if (allowed.indexOf(origin) !== -1) {
       callback(null, true);
@@ -40,6 +41,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(loggerHTTP);
 app.use(express.json());
+
+const clientRoutes = require('./modules/clients/client.routes');
+const productRoutes = require('./modules/products/product.routes');
+
+app.use('/api/auth', clientRoutes);
+app.use('/api', productRoutes);
 
 logger.info("Start Application", {
   environment: process.env.NODE_ENV,
