@@ -11,11 +11,11 @@ const produtos = [
     {id: 3, nome: 'monitor led', preco: 800, descricao: 'monitor led 2k'},
     {id: 4, nome: 'teclado keychron', preco: 500, descricao: 'teclado keychron k2'},
 ];
-let idProdutos = 5;
+let idProduto = 5;
 
 // middlewares
 const logMiddleware = (req, res, next) => {
-    console.log(`${new Date()} - ${req.method} - ${req.url}`);
+    console.log(`[${new Date()}] - ${req.method} - ${req.url}`);
     next();
 }
 
@@ -40,6 +40,41 @@ app.get('/produtos/:id', (req, res) => {
     res.status(200).json(productFound);
 });
 
+// enviar dados de novo produto
+app.post('/produtos', (req, res) => {
+    const {nome, preco, descricao} = req.body;
+    if (!nome || !preco || !descricao) {
+        return res.status(400).json({ message: 'Algum campo obrigatório esta vazio! '})
+    }
+    const newProduct = {id: idProduto++, nome, preco, descricao};
+    produtos.push(newProduct);
+    res.status(200).json({ message: 'Product added with success!', produtos: produtos });
+});
+
+// Deletar um produto pelo ID
+app.delete('/produtos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const indexProduct = produtos.findIndex((prod) => prod.id === id);
+    if (!indexProduct) {
+        return res.status(404).json({ message: `product ${id} not found in array`});
+    }
+    produtos.splice(indexProduct, 1);
+    res.status(200).json({ message: 'Product removed with success ', produtos: produtos });
+});
+
+// Atualizar um produto existente pelo ID
+app.put('/produtos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const productFound = produtos.find((prod) => prod.id === id);
+    if(!productFound) return res.status(404).json({ message: `product with ${id} not found in array`});
+
+    const {nome, preco, descricao} = req.body;
+    productFound.nome = nome || productFound.nome;
+    productFound.preco = preco || productFound.preco;
+    productFound.descricao = descricao || productFound.descricao;
+
+    res.status(200).json({ message: `product ${id} was updated!`, produtos: produtos})
+});
 
 app.listen(PORT, () => {
     console.log(`Server running in: http://localhost:${PORT}`); 
