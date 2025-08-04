@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "exercicio04": "nodemon src/exercicio04/server.js",
     "exercicio03": "nodemon src/exercicio03/server.js",
     "exercicio02": "nodemon src/exercicio02/src/server.js",
     "exercicio01": "nodemon src/exercicio01/exercicio01.js",
