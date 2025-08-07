@@ -1,5 +1,5 @@
 const dataProducts = require('../../config/data.products');
-const idProduct = 4;
+let idProduct = 5;
 
 // recupero todos os produtos
 const getAllProducts = () => {
@@ -18,7 +18,8 @@ const getProductById = (id) => {
 
 // criar um novo produto
 const createProduct = (nome, preco, descricao) => {
-    dataProducts.push({id: ++idProduct, nome, preco, descricao});
+    dataProducts.push({ id: idProduct, nome, preco, descricao });
+    idProduct++;
     return true;
 };
 

@@ -21,15 +21,14 @@ exports.getProductByIdController = async (req, res) => {
 
 exports.createProductController = async (req, res) => {
     try {
-        const { nome, preco, descricao } = req.body;
+        const {nome, preco, descricao} = req.body;
         if (!nome || !preco || !descricao) {
-            res.status(400).json({ message: 'os dados estão incompletos. '});
-            return;
+            res.status(400).json({message:`campos obrigatorios`})
         }
         await productServices.createProduct(nome, preco, descricao);
-        res.status(200).json({ message: 'produto criado com sucesso. '})
+        res.status(201).json({ message: `produto criado com sucesso.`})
     } catch (error) {
-        res.status(500).json({ message: 'Server Internal Error. '});
+        res.status(500).json({ message: 'Server Internal Error. ', error: error});
     }
 };
 
