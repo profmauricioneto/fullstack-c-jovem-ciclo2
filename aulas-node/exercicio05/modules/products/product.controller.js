@@ -1,56 +1,316 @@
 const productService = require('./product.service');
+const logger = require('../../shared/logger');
 
 exports.createProductController = async (req, res) => {
+    const correlationId = req.headers['x-correlation-id'] || `create-${Date.now()}`;
+    
     try {
         const { nome, preco, descricao } = req.body;
-        await productService.createProduct(nome, preco, descricao);
-        res.status(201).json({ message: 'task created with success'});
-    } catch (error) {
-        res.status(500).json({message: 'Error interno do servidor'});
-    }
 
-}
+        logger.info('Criando produto', {
+            correlationId,
+            userId: req.user.id,    
+            userName: req.user.nome,
+            userEmail: req.user.email
+        });
+
+        if (!nome || !preco || !descricao) {
+            return res.status(400).json({ 
+                error: 'Campos obrigatórios: nome, preco, descricao' 
+            });
+        }
+
+        if (typeof preco !== 'number' || preco <= 0) {
+            logger.warn('Preço inválido', { correlationId, preco, userId: req.user.id });
+            return res.status(400).json({ 
+                error: 'Preço deve ser um número positivo' 
+            });
+        }
+
+        const product = await productService.createProduct({
+            nome, 
+            preco, 
+            descricao,
+            createdBy: req.user.id
+        });
+
+        logger.info('Produto criado com sucesso', {
+            correlationId,
+            productId: product.id,
+            createdBy: req.user.id
+        });
+
+        res.status(201).json({
+            message: 'Produto criado com sucesso',
+            product
+        });
+
+    } catch (error) {
+        logger.error('Erro ao criar produto', {
+            correlationId,
+            userId: req.user?.id,
+            error: error.message,
+            stack: error.stack
+        });
+
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+};
 
 exports.getAllProductsController = async (req, res) => {
+    const correlationId = req.headers['x-correlation-id'] || `list-${Date.now()}`;
+    
     try {
-        const product = await productService.getAllProducts();
-        res.status(200).json(product);
-    } catch(error) {
-        res.status(500).json({message: 'Error interno do servidor'});
+        logger.info('Listando produtos', {
+            correlationId,
+            userId: req.user.id,
+            userEmail: req.user.email
+        });
+
+        const products = await productService.getAllProducts();
+        
+        logger.info('Produtos listados com sucesso', {
+            correlationId,
+            count: products.length,
+            userId: req.user.id
+        });
+
+        res.status(200).json({
+            products,
+            count: products.length
+        });
+
+    } catch (error) {
+        logger.error('Erro ao listar produtos', {
+            correlationId,
+            userId: req.user?.id,
+            error: error.message,
+            stack: error.stack
+        });
+
+        res.status(500).json({ 
+            error: 'Erro interno do servidor' 
+        });
     }
-}
+};
 
 exports.getProductByIdController = async (req, res) => {
+    const correlationId = req.headers['x-correlation-id'] || `get-${Date.now()}`;
+    
     try {
         const { id } = req.params;
+
+        logger.info('Buscando produto por ID', {
+            correlationId,
+            productId: id,
+            userId: req.user.id,
+            userEmail: req.user.email
+        });
+
+        // Validação do ID
+        if (!id || isNaN(Number(id))) {
+            logger.warn('ID inválido fornecido', { 
+                correlationId, 
+                id, 
+                userId: req.user.id 
+            });
+            return res.status(400).json({
+                error: 'ID deve ser um número válido'
+            });
+        }
+
         const product = await productService.getProductById(Number(id));
-        (product) ? res.status(200).json(product) : res.status(404).json({message: 'product not found'})
-    } catch(error) {
-        res.status(500).json({message: 'Error interno do servidor'});
+
+        if (!product) {
+            logger.warn('Produto não encontrado', {
+                correlationId,
+                productId: id,
+                userId: req.user.id
+            });
+            return res.status(404).json({
+                error: 'Produto não encontrado'
+            });
+        }
+
+        logger.info('Produto encontrado', {
+            correlationId,
+            productId: product.id,
+            productName: product.nome,
+            userId: req.user.id
+        });
+
+        res.status(200).json(product);
+
+    } catch (error) {
+        logger.error('Erro ao buscar produto', {
+            correlationId,
+            productId: req.params.id,
+            userId: req.user?.id,
+            error: error.message,
+            stack: error.stack
+        });
+
+        res.status(500).json({ 
+            error: 'Erro interno do servidor' 
+        });
     }
-}
+};
 
 exports.updateProductController = async (req, res) => {
+    const correlationId = req.headers['x-correlation-id'] || `update-${Date.now()}`;
+    
     try {
         const { id } = req.params;
         const { nome, preco, descricao } = req.body;
-        await productService.updateProduct(Number(id), nome, preco, descricao);
-        res.status(200).json({message: 'product update.'});
-    } catch(error) {
-        res.status(500).json({message: 'Error interno do servidor'});
-    }
 
-}
+        logger.info('Iniciando atualização de produto', {
+            correlationId,
+            productId: id,
+            userId: req.user.id,
+            userEmail: req.user.email,
+            updateFields: Object.keys(req.body)
+        });
+
+        // Validação do ID
+        if (!id || isNaN(Number(id))) {
+            logger.warn('ID inválido para atualização', { 
+                correlationId, 
+                id, 
+                userId: req.user.id 
+            });
+            return res.status(400).json({
+                error: 'ID deve ser um número válido'
+            });
+        }
+
+        // Validação de pelo menos um campo para atualizar
+        if (!nome && !preco && !descricao) {
+            logger.warn('Nenhum campo para atualizar', { 
+                correlationId,
+                userId: req.user.id 
+            });
+            return res.status(400).json({
+                error: 'Pelo menos um campo deve ser fornecido para atualização'
+            });
+        }
+
+        // Validação do preço se fornecido
+        if (preco !== undefined && (typeof preco !== 'number' || preco <= 0)) {
+            logger.warn('Preço inválido na atualização', { 
+                correlationId, 
+                preco,
+                userId: req.user.id 
+            });
+            return res.status(400).json({
+                error: 'Preço deve ser um número positivo'
+            });
+        }
+
+        const updatedProduct = await productService.updateProduct(
+            Number(id), 
+            { nome, preco, descricao, updatedBy: req.user.id }
+        );
+
+        if (!updatedProduct) {
+            logger.warn('Produto não encontrado para atualização', {
+                correlationId,
+                productId: id,
+                userId: req.user.id
+            });
+            return res.status(404).json({
+                error: 'Produto não encontrado'
+            });
+        }
+
+        logger.info('Produto atualizado com sucesso', {
+            correlationId,
+            productId: id,
+            updatedFields: Object.keys(req.body),
+            updatedBy: req.user.id
+        });
+
+        res.status(200).json({
+            message: 'Produto atualizado com sucesso',
+            product: updatedProduct
+        });
+
+    } catch (error) {
+        logger.error('Erro ao atualizar produto', {
+            correlationId,
+            productId: req.params.id,
+            userId: req.user?.id,
+            error: error.message,
+            stack: error.stack
+        });
+
+        res.status(500).json({ 
+            error: 'Erro interno do servidor' 
+        });
+    }
+};
 
 exports.deleteProductController = async (req, res) => {
+    const correlationId = req.headers['x-correlation-id'] || `delete-${Date.now()}`;
+    
     try {
         const { id } = req.params;
-        await productService.deleteProduct(Number(id));
-        res.status(200).json({message: 'product deleted'});
-    } catch(error) {
-        res.status(500).json({message: 'Error interno do servidor'});
+
+        logger.info('Iniciando deleção de produto', {
+            correlationId,
+            productId: id,
+            userId: req.user.id,
+            userEmail: req.user.email
+        });
+
+        // Validação do ID
+        if (!id || isNaN(Number(id))) {
+            logger.warn('ID inválido para deleção', { 
+                correlationId, 
+                id,
+                userId: req.user.id 
+            });
+            return res.status(400).json({
+                error: 'ID deve ser um número válido'
+            });
+        }
+
+        const deleted = await productService.deleteProduct(Number(id));
+
+        if (!deleted) {
+            logger.warn('Produto não encontrado para deleção', {
+                correlationId,
+                productId: id,
+                userId: req.user.id
+            });
+            return res.status(404).json({
+                error: 'Produto não encontrado'
+            });
+        }
+
+        logger.info('Produto deletado com sucesso', {
+            correlationId,
+            productId: id,
+            deletedBy: req.user.id
+        });
+
+        res.status(200).json({
+            message: 'Produto deletado com sucesso'
+        });
+
+    } catch (error) {
+        logger.error('Erro ao deletar produto', {
+            correlationId,
+            productId: req.params.id,
+            userId: req.user?.id,
+            error: error.message,
+            stack: error.stack
+        });
+
+        res.status(500).json({ 
+            error: 'Erro interno do servidor' 
+        });
     }
-}
+};
 
 // const productService = require('./product.service');
 // const logger = require('../../shared/logger');

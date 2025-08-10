@@ -9,7 +9,7 @@ const logger = require("./shared/logger");
 const loggerHTTP = require("./shared/middlewareLogger");
 const app = express();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000; // fallback
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -45,12 +45,15 @@ app.use(express.json());
 const clientRoutes = require('./modules/clients/client.routes');
 const productRoutes = require('./modules/products/product.routes');
 
+// Rotas públicas (sem autenticação)
 app.use('/api/auth', clientRoutes);
+
+// Rotas protegidas (com autenticação)
 app.use('/api', productRoutes);
 
 logger.info("Start Application", {
   environment: process.env.NODE_ENV,
-  port: process.env.PORT,
+  port: PORT,
 });
 
 app.listen(PORT, () => {
