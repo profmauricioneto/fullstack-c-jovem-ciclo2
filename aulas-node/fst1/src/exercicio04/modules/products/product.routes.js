@@ -1,7 +1,10 @@
 const productControllers = require('./product.controllers');
 const express = require('express');
+const authMiddleware = require('../../shared/middlewares/auth');
 
 const router = express.Router();
+
+router.use('/products', authMiddleware);
 
 router.get('/products', productControllers.getAllProductsController);
 router.get('/products/:id', productControllers.getProductByIdController);

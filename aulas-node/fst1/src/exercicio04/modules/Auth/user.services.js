@@ -1,8 +1,9 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const users = require('../../config/data.users');
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET;
+const JWT_SECRET_KEY = process.env.SECRET_KEY ;
 let IDUser = 2;
 
 exports.registerUser = async (nome, email, senha) => {
@@ -30,7 +31,7 @@ exports.registerUser = async (nome, email, senha) => {
             nome,
             email,
             senha: cryptPassword,
-            createAt: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
             status: 'active'
         };
@@ -44,8 +45,8 @@ exports.registerUser = async (nome, email, senha) => {
         );
 
         console.log(`Usuário cadastrado com sucesso.`);
-
-        return {newUser, token}
+        
+        return { newUser, token }
     } catch (error) {
         console.error(`Error ao cadastrar usuário`);
     }
