@@ -2,26 +2,36 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const users = require('../../config/data.users');
+const logger = require('../../shared/logger/logger');
+
 
 const JWT_SECRET_KEY = process.env.SECRET_KEY ;
 let IDUser = 2;
 
+if (!JWT_SECRET_KEY) {
+    logger.error('JWT SECRET não carregado!');
+    throw new Error('JWT SECRET não encontrada nas variáveis de ambiente.');
+}
+
 exports.registerUser = async (nome, email, senha) => {
     try {
         if (!nome || !email || !senha) {
-            console.error(`nome, email e senha são obrigatórios`);
-            return;
+            logger.error('nome, email e senha são obrigatórios');
+            throw new Error('nome ou email ou password não encontrados.');
         }
         if (senha.lenght >= 6) {
-            console.error(`A senha tem que ter no mínimo 6 digitos`);
-            return;
+            logger.error('senha deve possuir pelo menos 6 digitos');
+            throw new Error('senha deve possuir pelo menos 6 digitos');
         }
         // verificar se usuário já existe na base de dados.
         const user = users.find((user) => user.email === email);
         if (user) {
-            console.log(`Usuário existente ${user.email}`);
-            return;
+            logger.warn(`Usuário existente ${user.email}`);
+            throw new Error('Usuário já cadastrado na aplicação.');
         }
+
+        logger.info('Início do processo de cadastro do usuário.');
+
         // criptografando a senha do usuário.
         const cryptPassword = await bcrypt.hash(senha, 10);
         
@@ -36,6 +46,7 @@ exports.registerUser = async (nome, email, senha) => {
             status: 'active'
         };
         users.push(newUser);
+
         
         // gerando o JWT
         const token = jwt.sign(
@@ -44,11 +55,15 @@ exports.registerUser = async (nome, email, senha) => {
             {expiresIn: '10min'}
         );
 
-        console.log(`Usuário cadastrado com sucesso.`);
+        logger.info('Usuário cadastrado com Sucesso.', {nome, email});
         
         return { newUser, token }
     } catch (error) {
-        console.error(`Error ao cadastrar usuário`);
+        logger.error('Error ao cadastrar usuário', {
+            error: error.message,
+            email
+        });
+        throw error
     }
 }
 
@@ -56,27 +71,30 @@ exports.getAllUsers = () => {
     try {
         return users;
     } catch (error) {
-        console.error(`Error ao acessar a base de dados de usuários`);
+        logger.error('Error ao acessar os usuários', {
+            error: error.message,
+        });
+        throw error
     }
 };
 
 exports.login = async (email, senha) => {
     try {
         if (!email || !senha) {
-            console.error(`Email e senha são obrigatórios`);
-            return;
+            logger.error('email e senha são obrigatórios');
+            throw new Error('email ou password não encontrados.');
         }
         // procurando o usuário
         const userLogin = users.find((user) => user.email === email);
         if (!userLogin) {
-            console.error(`Usuário não encontrado.`);
-            return;
+            logger.error(`Usuário não encontrado ${userLogin}`);
+            throw new Error('Usuário não encontrado no sistema.');
         }
         // comparando as senhas
         const validPassword = await bcrypt.compare(senha, userLogin.senha);
         if (!validPassword) {
-            console.error(`Senha não válida!`);
-            return;
+            logger.error(`Senha não válida!`);
+            throw new Error('Senha não válida para este usuário.');
         }
 
         const token = jwt.sign(
@@ -87,6 +105,10 @@ exports.login = async (email, senha) => {
 
         return {userLogin, token};
     } catch (error) {
-        console.error(`Error ao fazer o login da aplicação.`);
+        logger.error('Error ao cadastrar usuário', {
+            error: error.message,
+            email
+        });
+        throw error
     }
 };
