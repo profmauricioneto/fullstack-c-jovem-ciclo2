@@ -3,36 +3,35 @@ const logger = require('../../shared/logger');
 
 exports.registerClientController = async (req, res) => {
     try {
-        const { nome, email, senha } = req.body;   
-        
+        const { nome, email, senha } = req.body;
+
         if (!nome || !email || !senha) {
             return res.status(400).json({
-                error: 'Required fields: name, email e password'
+                error: 'Campos obrigatórios: nome, email e senha'
             });
         }
 
-        const client = await clientService.registerClient(nome, email, senha);
+        const result = await clientService.registerClient(nome, email, senha);
 
         res.status(201).json({
-            message: 'Client registered with success',
-            client
+            message: 'Cliente registrado com sucesso',
+            client: result.client,
+            token: result.token
         });
     } catch (error) {
-        logger.error('Error to register client', {
-            error: error.message
-        });
+        logger.error('Erro ao registrar cliente', { error: error.message });
+        res.status(400).json({ error: error.message });
     }
-
-    res.status(400).json({
-        error: error.message
-    });
-}
+};
 
 exports.loginClientController = async (req, res) => {
     try {
         const { email, senha } = req.body;
+
         if (!email || !senha) {
-            return res.status(400).json({ error: 'Email e senha são obrigatórios' });
+            return res.status(400).json({
+                error: 'Email e senha são obrigatórios'
+            });
         }
 
         const result = await clientService.loginClient(email, senha);
@@ -43,6 +42,17 @@ exports.loginClientController = async (req, res) => {
             token: result.token
         });
     } catch (error) {
+        logger.error('Erro no login do cliente', { error: error.message });
         res.status(401).json({ error: error.message });
+    }
+};
+
+exports.getAllClientsController = async (req, res) => {
+    try {
+        const clients = await clientService.getAllClients();
+        res.json({ clients, count: clients.length });
+    } catch (error) {
+        logger.error('Erro ao listar clientes', { error: error.message });
+        res.status(500).json({ error: 'Erro interno do servidor' });
     }
 };

@@ -1,21 +1,18 @@
-const path = require("path");
-
-require("dotenv").config({
-  path: path.resolve(__dirname, "./config/.env"),
-});
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const logger = require("./shared/logger");
 const loggerHTTP = require("./shared/middlewareLogger");
-const { authenticateToken } = require("./middlewares/auth");
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.PORT || 3000; 
 
 const corsOptions = {
   origin: function (origin, callback) {
     const allowed = ["http://localhost:5173", "http://127.0.0.1:3000"];
+
     if (!origin) return callback(null, true);
+
     if (allowed.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -41,13 +38,14 @@ app.use(cors(corsOptions));
 app.use(loggerHTTP);
 app.use(express.json());
 
-// Rotas públicas (autenticação e registro)
 const clientRoutes = require('./modules/clients/client.routes');
+const productRoutes = require('./modules/products/product.routes');
+
+// Rotas públicas (sem autenticação)
 app.use('/api/auth', clientRoutes);
 
-// Rotas protegidas (produtos)
-const productRoutes = require('./modules/products/product.routes');
-app.use('/api/products', authenticateToken, productRoutes);
+// Rotas protegidas (com autenticação)
+app.use('/api', productRoutes);
 
 logger.info("Start Application", {
   environment: process.env.NODE_ENV,
