@@ -1,10 +1,8 @@
 require("dotenv").config();
-const usersData = require("../../config/data.users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const logger = require('../../shared/logger/logger');
-
-let idUser = 2;
+const prisma = require('../db/prisma');
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
