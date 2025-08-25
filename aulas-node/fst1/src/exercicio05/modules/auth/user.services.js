@@ -47,7 +47,7 @@ exports.registerUser = async ( nome, email, senha ) => {
         const token = jwt.sign(
             {id: newUser.id, email: newUser.email, nome: newUser.name},
             JWT_SECRET_KEY,
-            {expiresIn: '10min'}
+            {expiresIn: '1h'}
         );
 
         logger.info('Usuário cadastrado com Sucesso.', {nome, email});
@@ -97,7 +97,7 @@ exports.login = async ( email, senha ) => {
         const token = jwt.sign(
             {id: existUser.id, email: existUser.email, nome: existUser.name},
             JWT_SECRET_KEY,
-            {expiresIn: '10min'}
+            {expiresIn: '1h'}
         );
 
         return {existUser, token};

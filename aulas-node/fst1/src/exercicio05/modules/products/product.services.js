@@ -1,42 +1,86 @@
-const dataProducts = require('../../config/data.product');
-let idProduct = 4;
+const prisma = require('../db/prisma');
+const logger = require('../../shared/logger/logger');
 
-const getAllProducts = () => {
-    return dataProducts;
-};
-
-const getProductById = (id) => {
-    const product = dataProducts.find((prod) => prod.id === id);
-    if (!product) {
-        console.log(`Produto não encontrado!`);
-        return;
+const getAllProducts = async () => {
+    try {
+        const products = await prisma.product.findMany({
+            include: { user: { select: {id: true, nome: true, email: true }}}
+        });
+        logger.info('Produtos listados com sucesso', { count: products.length });
+        return products;
+    } catch (error) {
+        logger.error('Error ao acessar os produtos', { error: error.message });
+        throw error;
     }
-    return product;
 };
 
-const createProduct = (nome, preco, descricao) => {
-    dataProducts.push({id: ++idProduct, nome, preco, descricao});
-    return true;
-};
-
-const deleteProduct = (id) => {
-    const indexProduct = dataProducts.findIndex((prod) => prod.id === id);
-    if (indexProduct === -1) {
-        console.log(`Produto não encontrado.`);
-        return;
+const getProductById = async (id) => {
+    try {
+        const product = await prisma.product.findUnique({
+            where: { id: parseInt(id) },
+            include: { user: { select: {id: true, nome: true, email: true }}}
+        });
+        if (!product) {
+            logger.warn('Produto não encontrado', { id });
+            return null;
+        }
+        logger.info('Produto encontrado com sucesso.', { id });
+        return product;
+    } catch (error) {
+        logger.error('Error ao buscar o produto', { error: error.message });
+        throw error;    
     }
-    dataProducts.splice(indexProduct, 1);
 };
 
-const updateProduct = (id, nome, preco, descricao) => {
-    const productFound = dataProducts.find((prod) => prod.id === id);
-    if (!productFound) {
-        console.log(`Produto não encontrado.`);
-        return;
-    } else {
-        productFound.nome = nome || productFound.nome;
-        productFound.preco = preco || productFound.preco;
-        productFound.descricao = descricao || productFound.descricao;
+const createProduct = async ({ nome, preco, descricao, userId }) => {
+    try {
+        const product = await prisma.product.create({
+            data: {
+                name: nome,
+                price: preco,
+                description: descricao,
+            }
+        });
+        logger.info('Produto criado com sucesso.', {id: product.id, userId});
+        return product
+    } catch (error) {
+        logger.error('Error ao criar um produto', { error: error.message });
+        throw error;
+    }
+};
+
+const deleteProduct = async (id) => {
+    try {
+        const product = getProductById(id);
+        if (!product) {
+            return;
+        }
+        await prisma.product.delete({
+            where: { id: parseInt(id) },
+        });
+        logger.info('Produto deletado com sucesso.', { id });
+        return true;
+    } catch (error) {
+        logger.error('Error ao deletar um produto', { error: error.message });
+        throw error;
+    }
+};
+
+const updateProduct = async (id, { nome, preco, descricao }) => {
+    try {
+        const updatedProduct = await prisma.product.update({
+            where: { id: parseInt(id)},
+            data: {
+                name: nome,
+                price: preco,
+                description: descricao,
+            }
+        });
+        logger.info('Atualizar um produto com sucesso.', { id });
+        return updateProduct;
+    } catch (error) {
+        logger.error('Error ao atualizar o produto', { error: error.message });
+        throw error;
     }
 };
 
