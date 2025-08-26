@@ -1,52 +1,112 @@
-const dataProducts = require('../../config/data.products');
-let idProduct = 5;
+const prisma = require("../db/prisma");
+const logger = require("../../shared/logger/logger");
 
-// recupero todos os produtos
-const getAllProducts = () => {
-    return dataProducts;
+// recuperar todos os produtos
+const getAllProducts = async () => {
+  try {
+    const products = await prisma.produto.findMany({
+      include: { user: { select: { id: true, nome: true, email: true } } },
+    });
+    logger.info("Produtos acessados com sucesso.", {
+      count: products.push.length,
+    });
+    return products;
+  } catch (error) {
+    logger.error("Erro ao acessar os produtos.", {
+      error: error.message,
+    });
+    throw error;
+  }
 };
 
 // recuperar um produto pelo id
-const getProductById = (id) => {
-    const product = dataProducts.find((prod) => prod.id === id);
+const getProductById = async (id) => {
+  try {
+    const product = await prisma.produto.findUnique({
+      where: { id: parseInt(id) },
+      include: { user: { select: { id: true, nome: true, email: true } } },
+    });
     if (!product) {
-        console.error(`produto não encontrado`);
-        return;
+      logger.warn("Produto não encontrado na base de dados.", {
+        productId: id,
+      });
+      return;
     }
+    logger.info("Produto encontrado com sucesso.", {
+      productId: id,
+    });
     return product;
+  } catch (error) {
+    logger.error("Erro ao acessar um produto específico.", {
+      error: error.message,
+    });
+    throw error;
+  }
 };
 
 // criar um novo produto
-const createProduct = (nome, preco, descricao) => {
-    dataProducts.push({ id: idProduct, nome, preco, descricao });
-    idProduct++;
-    return true;
+const createProduct = async ({nome, preco, descricao, userId}) => {
+    try {
+        const product = await prisma.product.create({
+            data: {
+                nome,
+                preco,
+                descricao,
+                userId
+            }
+        });
+        logger.info('Produto criado com sucesso.', { productId: product.id, userId});
+        return product;
+    } catch (error) {
+        logger.error("Erro ao cadastrar um produto.", {
+            error: error.message,
+        });
+        throw error;
+    }
 };
 
 // deletar um produto pelo id
-const deleteProduct = (id) => {
-    const productIndex = dataProducts.findIndex((prod) => prod.id === id);
-    if (productIndex === -1) {
-        console.error(`produto não encontrado!`);
-        return;
+const deleteProduct = async (id) => {
+    try {
+        await prisma.product.delete({
+            where: {id: parseInt(id)}
+        });
+        logger.info('Produto deletado com sucesso.', {productId: id})
+    } catch (error) {
+        logger.error("Erro ao deletar um produto.", {
+            error: error.message,
+        });
+        throw error;        
     }
-    dataProducts.splice(productIndex, 1);
 };
 
 // atualizar um produto pelo id
-const updateProduct = (id, nome, preco, descricao) => {
-    const productFound = getProductById(id);
-    if (productFound) {
-        productFound.nome = nome || productFound.nome;
-        productFound.preco = preco || productFound.preco;
-        productFound.descricao = descricao || productFound.descricao;
+const updateProduct = async (id, { nome, preco, descricao }) => {
+    try {
+        const updatedProduct = await prisma.product.update({
+            where: { id: parseInt(id) },
+            data: {
+                nome,
+                preco,
+                descricao
+            }
+        });
+        logger.info('Produto atualizado com sucesso.', {
+            productId: id
+        });
+        return updatedProduct;    
+    } catch (error) {
+        logger.error("Erro ao atualizar um produto.", {
+            error: error.message,
+        });
+        throw error;        
     }
 };
 
 module.exports = {
-    updateProduct,
-    deleteProduct,
-    createProduct,
-    getProductById,
-    getAllProducts,
-}
+  updateProduct,
+  deleteProduct,
+  createProduct,
+  getProductById,
+  getAllProducts,
+};

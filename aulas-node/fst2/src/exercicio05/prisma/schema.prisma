@@ -23,7 +23,7 @@ model Usuario {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  produtos Produto[]
+  produtos Produto[] // @relation
 }
 
 model Produto {

@@ -45,10 +45,10 @@ exports.createProductController = async (req, res) => {
         }
 
         const product = await productServices.createProduct({
-            nome,
-            preco,
-            descricao,
-            createBy: req.user.id,
+            name: nome,
+            price: preco,
+            description: descricao,
+            userId: req.user.id,
         });
 
         res.status(201).json({

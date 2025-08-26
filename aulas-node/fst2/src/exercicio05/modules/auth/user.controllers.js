@@ -24,9 +24,9 @@ exports.registerUserController = async (req, res) => {
     }
 };
 
-exports.getAllUsersController = (req, res) => {
+exports.getAllUsersController = async (req, res) => {
     try {
-        const users = userServices.getAllUsers();
+        const users = await userServices.getAllUsers();
         res.status(200).json({
             users
         })

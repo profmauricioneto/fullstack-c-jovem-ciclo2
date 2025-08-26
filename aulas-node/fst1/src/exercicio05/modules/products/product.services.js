@@ -32,17 +32,18 @@ const getProductById = async (id) => {
     }
 };
 
-const createProduct = async ({ nome, preco, descricao, userId }) => {
+const createProduct = async ({ name, price, description, userId }) => {
     try {
         const product = await prisma.product.create({
             data: {
-                name: nome,
-                price: preco,
-                description: descricao,
+                name,
+                price,
+                description,
+                userId
             }
         });
         logger.info('Produto criado com sucesso.', {id: product.id, userId});
-        return product
+        return product;
     } catch (error) {
         logger.error('Error ao criar um produto', { error: error.message });
         throw error;
@@ -51,7 +52,7 @@ const createProduct = async ({ nome, preco, descricao, userId }) => {
 
 const deleteProduct = async (id) => {
     try {
-        const product = getProductById(id);
+        const product = await getProductById(id);
         if (!product) {
             return;
         }
@@ -77,7 +78,7 @@ const updateProduct = async (id, { nome, preco, descricao }) => {
             }
         });
         logger.info('Atualizar um produto com sucesso.', { id });
-        return updateProduct;
+        return updatedProduct;
     } catch (error) {
         logger.error('Error ao atualizar o produto', { error: error.message });
         throw error;
