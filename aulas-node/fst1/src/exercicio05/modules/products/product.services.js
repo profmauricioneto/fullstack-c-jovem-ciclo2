@@ -4,7 +4,7 @@ const logger = require('../../shared/logger/logger');
 const getAllProducts = async () => {
     try {
         const products = await prisma.product.findMany({
-            include: { user: { select: {id: true, nome: true, email: true }}}
+            include: { user: { select: {id: true, name: true, email: true }}}
         });
         logger.info('Produtos listados com sucesso', { count: products.length });
         return products;
@@ -18,7 +18,7 @@ const getProductById = async (id) => {
     try {
         const product = await prisma.product.findUnique({
             where: { id: parseInt(id) },
-            include: { user: { select: {id: true, nome: true, email: true }}}
+            include: { user: { select: {id: true, name: true, email: true }}}
         });
         if (!product) {
             logger.warn('Produto não encontrado', { id });
