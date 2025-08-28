@@ -47,12 +47,12 @@ const getProductById = async (id) => {
 // criar um novo produto
 const createProduct = async ({nome, preco, descricao, userId}) => {
     try {
-        const product = await prisma.product.create({
+        const product = await prisma.produto.create({
             data: {
-                nome,
-                preco,
-                descricao,
-                userId
+                nome: nome,
+                preco: preco,
+                descricao: descricao,
+                userId: userId
             }
         });
         logger.info('Produto criado com sucesso.', { productId: product.id, userId});
@@ -68,7 +68,7 @@ const createProduct = async ({nome, preco, descricao, userId}) => {
 // deletar um produto pelo id
 const deleteProduct = async (id) => {
     try {
-        await prisma.product.delete({
+        await prisma.produto.delete({
             where: {id: parseInt(id)}
         });
         logger.info('Produto deletado com sucesso.', {productId: id})
@@ -83,7 +83,7 @@ const deleteProduct = async (id) => {
 // atualizar um produto pelo id
 const updateProduct = async (id, { nome, preco, descricao }) => {
     try {
-        const updatedProduct = await prisma.product.update({
+        const updatedProduct = await prisma.produto.update({
             where: { id: parseInt(id) },
             data: {
                 nome,
