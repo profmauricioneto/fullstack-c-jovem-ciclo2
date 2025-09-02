@@ -24,7 +24,7 @@ const useAuthStore = create(
         set({ isLoading: true, error: null })
         
         try {
-          const response = await api.post('/auth/login', { email, senha })
+          const response = await api.post('/auth/login', { email, password: senha })
           const { client, token } = response.data
           
           // Configurar header do axios
