@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
-import {useNavigate} from 'react-router-dom'
+// import {useNavigate} from 'react-router-dom'
 
-const Register = () => {
-  const [formData, setFormData] = useState({ nome: "", email: "", senha: "" });
+const Login = () => {
+  const [formData, setFormData] = useState({ email: "", senha: "" });
   const [error, setError] = useState("");
 
-  const { register, isLoading } = useAuthStore();
+  const { login } = useAuthStore();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,14 +20,20 @@ const Register = () => {
       return;
     }
 
-    const result = await register(formData.nome, formData.email, formData.senha);
+    const result = await login(formData.email, formData.senha);
 
     if (result.success) {
-      navigate('/login')
+      // TODO: encaminhar para a parte interna da aplicação
     } else {
       setError(result.error)
     }
 
+    // if (result.success) {
+    //     // MUDAR PARA TELA LOGIN
+    //     navigate('/');
+    // } else {
+    //     setError(result.error)
+    // }
   };
 
   const handleChange = (event) => {
@@ -41,24 +47,11 @@ const Register = () => {
     <>
       <div className="max-w-md mx-auto mt-8">
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl text-center font-bold mb-5">Cadastro</h2>
+          <h2 className="text-2xl text-center font-bold mb-5">Login</h2>
 
           {error && <div className="bg-red-100 border border-red-400 text-red-800 px-4 py-2 rounded mb-4">{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-gray-600 text-sm font-bold mb-2">
-                Nome
-              </label>
-              <input
-                type="text"
-                name="nome"
-                value={formData.nome}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus: outline-none focus: ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
 
             <div>
               <label className="block text-gray-600 text-sm font-bold mb-2">
@@ -83,27 +76,23 @@ const Register = () => {
                 name="senha"
                 value={formData.senha}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus: outline-none focus: ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus: outline-none focus: ring-2 focus:ring-blue-500 mt-1"
                 required
               />
-              <p className="text-sm text-gray-400 mt-1">
-                Mínimo de 6 caracteres
-              </p>
             </div>
 
             <button
               type="submit"
-              disabled={isLoading}
               className="w-full bg-green-800 hover:bg-green-700 rounded disabled:bg-gray-700 text-white font-bold rouded py-2 px-4 transition-colors"
             >
-              Cadastrar
+              Entrar
             </button>
           </form>
 
           <div className="text-center mt-4">
             <p className="text-gray-600">
-              Já tem conta?{' '}
-              <Link to={'/login'} className="text-blue-700 hover:text-blue-500">Faça o Login</Link>
+              Não tem conta?{' '}
+              <Link to={'/cadastro'} className="text-blue-700 hover:text-blue-500">Cadastre-se</Link>
             </p>
           </div>
         </div>
@@ -112,4 +101,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
