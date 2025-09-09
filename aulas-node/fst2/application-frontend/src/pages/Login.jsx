@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
-// import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", senha: "" });
   const [error, setError] = useState("");
 
-  const { login } = useAuthStore();
-
-  // const navigate = useNavigate();
+  const { login, isLoading } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,16 +23,10 @@ const Login = () => {
 
     if (result.success) {
       // TODO: encaminhar para a parte interna da aplicação
+      navigate('/dashboard');
     } else {
       setError(result.error)
     }
-
-    // if (result.success) {
-    //     // MUDAR PARA TELA LOGIN
-    //     navigate('/');
-    // } else {
-    //     setError(result.error)
-    // }
   };
 
   const handleChange = (event) => {
@@ -83,6 +76,7 @@ const Login = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-green-800 hover:bg-green-700 rounded disabled:bg-gray-700 text-white font-bold rouded py-2 px-4 transition-colors"
             >
               Entrar

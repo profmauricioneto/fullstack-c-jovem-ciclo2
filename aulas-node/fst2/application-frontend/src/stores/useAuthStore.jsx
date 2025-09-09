@@ -16,7 +16,7 @@ const useAuthStore = create(
             setError: (error) => set({ error }),
             clearError: () => set({ error: null }),
 
-            initializate: () => {
+            initialize: () => {
                 const { token } = get()
                 if ( token ) {
                     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
