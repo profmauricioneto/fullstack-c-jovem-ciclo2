@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../stores/useAuthStore";
 
 const Register = () => {
   const [formData, setFormData] = useState({ nome: "", email: "", senha: "" });
   const [error, setError] = useState("");
+  const { register, isLoading} = useAuthStore();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,8 +16,13 @@ const Register = () => {
       return;
     }
 
-    // TODO: fazer o envio dos dados via AXIOS
-    // const response = await axios.post()
+    const result = await register(formData.nome, formData.email, formData.senha)
+
+    if (result.success) {
+      // IR PARA PAGINA PRINCIPAL
+    } else {
+      setError(result.error);
+    }
   };
 
   const handleChange = (event) => {
@@ -86,6 +93,7 @@ const Register = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-green-700 text-white font-bold py-2 px-3 rounded hover:bg-green-600 transition-colors"
             >
               Cadastrar

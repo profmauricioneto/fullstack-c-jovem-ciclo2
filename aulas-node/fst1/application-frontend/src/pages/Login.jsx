@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../stores/useAuthStore";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", senha: "" });
   const [error, setError] = useState("");
+  const { login, isLoading } = useAuthStore();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,8 +17,13 @@ const Login = () => {
         return;
     }
 
-    // TODO: fazer o envio dos dados via AXIOS
-    // const response = await axios.post()
+    const result = await login(formData.email, formData.senha);
+    
+    if (result.success)  {
+      // TODO: ENCAMINHAR PARA A PAGINA PRINCIPAL
+    } else {
+      setError(result.error);
+    }
 
   }
 
@@ -66,6 +74,7 @@ const Login = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-green-700 text-white font-bold py-2 px-3 rounded hover:bg-green-600 transition-colors"
             >
               Login
