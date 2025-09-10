@@ -12,7 +12,7 @@ const useAuthStore = create(
             error: null,
 
             // actions
-            isAuthenticated: () => get().token | undefined,
+            isAuthenticated: () => get().token || undefined,
             setLoading: () => set({ isLoading: true }),
             setError: (error) => set({ error }),
             clearError: () => set({ error: null }),
@@ -57,11 +57,11 @@ const useAuthStore = create(
             },
 
             login: async (email, senha) => {
-                set({ isLoading: true, error: null })
+                set({ isLoading: true, error: null });
 
                 try {
-                    const response = await api.post('/auth/login', {email, senha});
-                    const  {user, token } = response.data;
+                    const response = await api.post('/auth/login', { email, senha });
+                    const { user, token } = response.data;
 
                     // colocando token no cabecalho das requisicoes
                     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;

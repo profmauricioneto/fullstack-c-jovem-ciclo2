@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 
 const Register = () => {
   const [formData, setFormData] = useState({ nome: "", email: "", senha: "" });
   const [error, setError] = useState("");
   const { register, isLoading} = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,7 +20,7 @@ const Register = () => {
     const result = await register(formData.nome, formData.email, formData.senha)
 
     if (result.success) {
-      // IR PARA PAGINA PRINCIPAL
+      navigate('/login')
     } else {
       setError(result.error);
     }

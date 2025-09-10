@@ -31,6 +31,7 @@ const useProductStore = create((set) => ({
             throw error
         }
     },
+    
     // criar um produto
     createProduct: async (newProduct) => {
         set({ isLoading: true, error: null })

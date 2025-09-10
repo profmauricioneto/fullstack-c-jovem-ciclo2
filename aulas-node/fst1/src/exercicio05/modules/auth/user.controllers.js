@@ -36,7 +36,7 @@ exports.loginController = async (req, res) => {
 
         res.status(200).json({
             message: 'login realizado com sucesso.',
-            user: result.userLogin,
+            user: result.existUser,
             token: result.token
         });
     } catch (error) {

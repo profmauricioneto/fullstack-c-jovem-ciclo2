@@ -1,11 +1,20 @@
-import React from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
+import useAuthStore from "./stores/useAuthStore";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
+
+  const {initialize} = useAuthStore();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize])
+
   return (
     <>
       <BrowserRouter>
@@ -14,6 +23,8 @@ const App = () => {
         <Routes>
           <Route path="/cadastro" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Navigate to={"/dashboard"} replace/>} />
+          <Route path="/dashboard" element={<Dashboard />}/>
         </Routes>
       </BrowserRouter>
     </>

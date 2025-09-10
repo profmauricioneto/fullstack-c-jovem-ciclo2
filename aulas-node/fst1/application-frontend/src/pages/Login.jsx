@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", senha: "" });
   const [error, setError] = useState("");
-  const { login, isLoading } = useAuthStore();
+  const { login, isLoading, isAuthenticated } = useAuthStore();
 
+  const navigate = useNavigate();
+
+  if (isAuthenticated()) {
+    navigate('/dashboard');
+    return null;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,7 +26,7 @@ const Login = () => {
     const result = await login(formData.email, formData.senha);
     
     if (result.success)  {
-      // TODO: ENCAMINHAR PARA A PAGINA PRINCIPAL
+      navigate('/dashboard');
     } else {
       setError(result.error);
     }

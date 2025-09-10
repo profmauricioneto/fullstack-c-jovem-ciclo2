@@ -86,6 +86,8 @@ exports.login = async ( email, senha ) => {
         if (!existUser) {
             logger.error(`Usuário não encontrado ${existUser}`);
             throw new Error('Usuário não encontrado no sistema.');
+        } else {
+            logger.info(`Usuário encontrado: ${existUser}`);
         }
         // comparando as senhas
         const validPassword = await bcrypt.compare(senha, existUser.password);
@@ -100,6 +102,8 @@ exports.login = async ( email, senha ) => {
             {expiresIn: '1h'}
         );
 
+        // console.log(existUser);
+        
         return {existUser, token};
     } catch (error) {
         logger.error('Error ao cadastrar usuário', {
