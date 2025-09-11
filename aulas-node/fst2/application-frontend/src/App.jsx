@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import useAuthStore from './stores/useAuthStore';
+import Products from './pages/Products';
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
                     <Route path='/login' element={<Login />} />
                     <Route path='/' element={<Navigate to={'/dashboard'} replace />} />
                     <Route path='/dashboard' element={<Dashboard />}/>
+                    <Route path='/produtos' element={<Products />}/>
                 </Routes>
             </BrowserRouter>
         </>

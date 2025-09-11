@@ -21,7 +21,7 @@ const Navbar = () => {
           {isAuthenticated() ? (
             <div className="flex items-center space-x-4">
               <Link className="text-white hover:text-blue-200 transition-colors">Dashboard</Link>
-              <Link className="text-white hover:text-blue-200 transition-colors">Produtos</Link>
+              <Link to={'/produtos'} className="text-white hover:text-blue-200 transition-colors">Produtos</Link>
               <span className="text-white">Olá, {user.nome}</span>
               <button 
                 onClick={handleLogout}

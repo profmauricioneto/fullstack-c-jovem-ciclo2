@@ -22,7 +22,6 @@ const Login = () => {
     const result = await login(formData.email, formData.senha);
 
     if (result.success) {
-      // TODO: encaminhar para a parte interna da aplicação
       navigate('/dashboard');
     } else {
       setError(result.error)

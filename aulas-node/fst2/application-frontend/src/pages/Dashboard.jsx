@@ -17,7 +17,7 @@ const Dashboard = () => {
 
         <div className="text-gray-700 mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
-            // to={}
+            to={'/produtos'}
             className="bg-blue-500 hover:bg-blue-400 text-white rounded-lg p-6 text-center transition-colors"
           >
             <h3 className="font-bold text-xl mb-2">Ver os produtos</h3>

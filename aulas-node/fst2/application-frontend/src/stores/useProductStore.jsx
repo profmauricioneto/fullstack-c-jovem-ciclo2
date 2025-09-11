@@ -18,7 +18,7 @@ const useProductStore = create((set) => ({
         try {
             const response = await api.get('/products');
             set({
-                products: response.data.products || [],
+                products: response.data || [],
                 error: null,
                 isLoading: false,
             })
@@ -37,7 +37,7 @@ const useProductStore = create((set) => ({
         set({ isLoading: true, error: null })
         try {
             const response = await api.post('/products', newProduct);
-            const productData = response.data.product;
+            const productData = response.data;
             set((state) => ({
                 products: [...state.products, productData],
                 isLoading: false,
@@ -64,6 +64,8 @@ const useProductStore = create((set) => ({
                 products: state.products.filter(product => product.id !== id),
                 error: null
             }))
+
+            return { success: true }
         } catch (error) {
             const errorMessage = 'Erro ao deletar um produto';
             set({
@@ -78,7 +80,7 @@ const useProductStore = create((set) => ({
         set({ isLoading: true, error: null })
         try {
             const response = await api.put(`/products/${id}`, productData)
-            const updatedProduct = response.data.product;
+            const updatedProduct = response.data;
 
             set((state) => ({
                 products: state.products.map((product) => product.id === id ? updatedProduct: product),
