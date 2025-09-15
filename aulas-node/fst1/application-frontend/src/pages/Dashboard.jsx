@@ -16,7 +16,7 @@ export default function Dashboard () {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <Link 
                             className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-center p-4 transition-colors"
-                            // to={}
+                            to={'/produtos'}
                         >
                             <h3 className="text-xl font-bold mb-2">Ver Produtos</h3>
                             <p>Visualizar os produtos cadastrados</p>

@@ -25,7 +25,7 @@ const Navbar = () => {
                 <Link to={"/dashboard"}>Dashboard</Link>
 
                 <Link
-                // to={'/produtos'}
+                to={'/produtos'}
                 >
                   Produtos
                 </Link>

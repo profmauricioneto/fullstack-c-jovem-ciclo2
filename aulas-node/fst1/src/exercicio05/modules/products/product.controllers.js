@@ -86,8 +86,8 @@ exports.updateProductController = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { nome, preco, descricao } = req.body;
-        await productServices.updateProduct(id, nome, preco, descricao);
-        res.status(200).json({ message: `product updated with success!`});
+        const updatedProduct = await productServices.updateProduct(id, nome, preco, descricao);
+        res.status(200).json({ message: `product updated with success!`, updatedProduct});
     } catch (error) {
         res.status(500).json({ message: `Server Internal Error`});
     }
