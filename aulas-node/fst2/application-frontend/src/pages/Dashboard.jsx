@@ -25,7 +25,7 @@ const Dashboard = () => {
           </Link>
 
           <Link
-            // to={}
+            to={'/produtos/criar'}
             className="bg-blue-500 hover:bg-blue-400 text-white rounded-lg p-6 text-center transition-colors"
           >
             <h3 className="font-bold text-xl mb-2">Adicionar o Produto</h3>
