@@ -37,7 +37,7 @@ const Navbar = () => {
                 >Sair</button>
               </div>
             ) : (
-              <div>
+              <div className="space-x-6">
                 <Link
                   to={"/login"}
                   className="text-white text-sm hover:text-blue-200 transition-colors"

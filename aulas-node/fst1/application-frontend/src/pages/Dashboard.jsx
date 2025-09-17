@@ -24,7 +24,7 @@ export default function Dashboard () {
 
                         <Link 
                             className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-center p-4 transition-colors"
-                            // to={}
+                            to={'/produtos/criar'}
                         >
                             <h3 className="text-xl font-bold mb-2">Cadastro Produto</h3>
                             <p>Cadastre um novo produto</p>
