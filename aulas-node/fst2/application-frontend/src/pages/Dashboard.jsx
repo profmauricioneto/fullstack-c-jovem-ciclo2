@@ -37,12 +37,12 @@ const Dashboard = () => {
           <h2 className="text-3xl font-bold text-gray-700 mb-3">
             Informações do Usuário
           </h2>
-          <div className="space-y-3">
-            <p>ID: {user.id}</p>
-            <p>Nome: {user.nome}</p>
-            <p>Email: {user.email}</p>
+          <div className="space-y-3 text-gray-700">
+            <p><strong>ID: </strong>{user.id}</p>
+            <p><strong>Nome: </strong> {user.nome}</p>
+            <p><strong>Email: </strong> {user.email}</p>
             <p>
-              Criando em:{" "}
+              <strong>Criado em:</strong>{" "}
               {user?.createdAt &&
                 new Date(user.createdAt).toLocaleDateString("pt-BR")}
             </p>
