@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "swagger": "node src/exercicio05/swagger.js",
     "exercicio05": "nodemon src/exercicio05/server.js",
     "exercicio04": "nodemon src/exercicio04/server.js",
     "exercicio03": "nodemon src/exercicio03/server.js",
@@ -24,7 +25,10 @@
     "jsonwebtoken": "^9.0.2",
     "pino": "^9.9.0",
     "pino-http": "^10.5.0",
-    "pino-pretty": "^13.1.1"
+    "pino-pretty": "^13.1.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",

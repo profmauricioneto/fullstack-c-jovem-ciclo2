@@ -12,7 +12,7 @@ const useAuthStore = create(
             error: null,
 
             // actions
-            isAuthenticated: () => get().token || undefined,
+            isAuthenticated: () => get().token,
             setLoading: () => set({ isLoading: true }),
             setError: (error) => set({ error }),
             clearError: () => set({ error: null }),
